@@ -10,6 +10,7 @@
 [![Dataset Win Rate](https://img.shields.io/badge/Dataset_Win_Rate-63%25-2563eb?style=flat-square)](https://adaptionlabs.ai/app/dataset/6206c9f4-a0ef-4bb3-af1c-6725d533a297?tab=finetune)
 [![Readability](https://img.shields.io/badge/Readability-5.0_→_7.6-84cc16?style=flat-square)](https://adaptionlabs.ai/)
 [![License](https://img.shields.io/badge/License-MIT-94a3b8?style=flat-square)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-HackIndia_2025_Submission-f59e0b?style=flat-square)](https://github.com/HackIndiaXYZ/adaption-autoscientist-challenge-50000-prize-pool-byteme)
 
 ---
 
@@ -132,7 +133,7 @@ This is a **real access-to-justice problem**. LexSimplify is a step toward makin
 flowchart TD
     A["🗂️ Raw CUAD Data\n510 contracts · 41 categories"] --> B["🔍 Dataset Cleaning\nDeduplication & normalisation"]
     B --> C["📐 Overlap Score Filter\nThreshold ≤ 0.75"]
-    C --> D["🤖 Claude API Regeneration\n857 low-quality rows replaced"]
+    C --> D["🔄 Row Regeneration\n857 low-quality rows replaced"]
     D --> E["✅ Enhanced Dataset\n3,477 clean pairs"]
     E --> F["⚙️ AutoScientist Adaptation\nDataset upload & configuration"]
     F --> G["🦙 LoRA + SFT Fine-Tuning\nLlama 4 Scout 17B-16E · r=32 · α=64"]
@@ -149,29 +150,23 @@ flowchart TD
 
 ## 📁 Repository Structure
 
+The repository currently contains the following files. Additional scripts and config files are planned and will be added before final submission.
+
 ```
 adaption-autoscientist-challenge-byteme/
 │
-├── 📂 data/
-│   ├── legal_simplification_clean.csv   # Final training dataset (3,477 rows)
-│   └── raw/                             # Original CUAD source files (optional)
-│
-├── 📂 scripts/
-│   ├── filter_dataset.py                # Overlap-score quality filter
-│   ├── regenerate_rows.py               # Claude API regeneration script
-│   └── inference.py                     # Model inference demo
-│
-├── 📂 config/
-│   └── lora_config.json                 # LoRA training configuration
-│
-├── 📂 notebooks/
-│   └── dataset_analysis.ipynb           # Dataset EDA and quality analysis (optional)
-│
-├── README.md
-└── LICENSE
+├── README.md       # Project documentation (this file)
+├── LICENSE         # MIT License
+└── .gitignore
 ```
 
-> **Note:** `data/raw/` and `notebooks/` are optional — the cleaned dataset is available directly from [HuggingFace](https://huggingface.co/datasets/Karthikrv/adaption-legal-clause-simplification) and [Kaggle](https://www.kaggle.com/datasets/karthikrv1107/adaption-legal-clause-simplification).
+**External resources** (hosted separately):
+
+| Resource | Location |
+|---|---|
+| 🗂️ Training dataset | [HuggingFace](https://huggingface.co/datasets/Karthikrv/adaption-legal-clause-simplification) · [Kaggle](https://www.kaggle.com/datasets/karthikrv1107/adaption-legal-clause-simplification) |
+| 🦙 Fine-tuned model | [Karthikrv/Legal-Document-Simplifier-Llama4](https://huggingface.co/Karthikrv/Legal-Document-Simplifier-Llama4) |
+| 🏆 AutoScientist run | [View training run](https://adaptionlabs.ai/app/dataset/6206c9f4-a0ef-4bb3-af1c-6725d533a297?tab=finetune) |
 
 ---
 
@@ -180,14 +175,14 @@ adaption-autoscientist-challenge-byteme/
 ### Source
 - **Base dataset**: [CUAD — Contract Understanding Atticus Dataset](https://www.atticusprojectai.org/cuad) — 510 real commercial contracts, 41 legal clause categories, sourced from EDGAR filings
 - **Simplification pairs**: Custom-curated dataset of legal clause → plain-English output pairs
-- **Dataset license**: Follows CUAD's CC BY 4.0 license for the source annotations; simplified pairs are released under MIT
+- **Dataset license**: The source annotations are derived from CUAD, which is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The simplified plain-English pairs in this dataset are a derivative work. Please refer to the [CUAD license terms](https://www.atticusprojectai.org/cuad) before using this dataset in commercial or redistributed contexts.
 
 ### Dataset Composition
 
 | Split | Rows | Description |
 |---|---|---|
 | Original good rows | 2,620 | High-quality simplification pairs, overlap score ≤ 0.75 |
-| Regenerated rows | 857 | Low-quality rows replaced using Claude-generated plain-English outputs |
+| Regenerated rows | 857 | Low-quality rows replaced with improved plain-English outputs |
 | **Total** | **3,477** | **Clean, deduplicated, quality-filtered** |
 
 ### Quality Filtering
@@ -206,7 +201,7 @@ def overlap_score(input_text, output_text):
 # Bad rows: overlap > 0.75 (lazy paraphrase, excluded or regenerated)
 ```
 
-Rows failing this threshold were regenerated using the Claude API with the following prompt template:
+Rows failing this threshold were replaced with improved plain-English rewrites using the following quality criteria:
 
 ```
 You are a legal simplification expert. Rewrite this legal clause in plain English:
@@ -251,7 +246,7 @@ We used the **AutoScientist** platform end-to-end for dataset management, traini
 ### Pipeline Overview
 
 ```
-Raw CUAD Data (5,000 clauses)
+Raw CUAD Data (~5,000 clause candidates, sourced from CUAD)
         ↓
 Quality Filtering (overlap score ≤ 0.75)
         ↓
@@ -265,7 +260,7 @@ AutoScientist Fine-Tuning
 AutoScientist Evaluation
   └── Dataset Win Rate
   └── Legal Category Win Rate
-  └── Grade & Percentile
+  └── Grade
         ↓
 Iteration based on metrics
 ```
@@ -274,9 +269,11 @@ Iteration based on metrics
 
 | Run | Dataset | Dataset Win Rate | Legal Win Rate | Grade | Notes |
 |---|---|---|---|---|---|
-| 1 | legal_contract_qa_pairs (50k) | 3% | 2% | C | Dataset too large, diluted signal |
-| 2 | legal_text_simplification v1 (3k raw) | 1% | 2% | B | Data quality issue discovered |
-| 3 | legal_text_simplification v2 (3.4k cleaned) | **63%** | **69%** | **B** | Quality filtering fixed the problem |
+| 1 | legal_contract_qa_pairs (50k) — **separate dataset, not CUAD** | 3% | 2% | C | Off-task examples, mixed domains, diluted signal |
+| 2 | legal_text_simplification v1 (3k raw, CUAD-derived) | 1% | 2% | B | Data quality issue discovered |
+| 3 | legal_text_simplification v2 (3.4k cleaned, CUAD-derived) | **63%** | **69%** | **B** | Quality filtering fixed the problem |
+
+> **Note:** The 50k dataset in Run 1 (`legal_contract_qa_pairs`) is a separate, general-purpose legal Q&A dataset — it is not derived from CUAD. The ~5,000 clause candidates in the pipeline above refer to the CUAD source used for Runs 2 and 3.
 
 **Key learning**: The 50k dataset produced dramatically worse results than the 3k dataset because quantity without quality dilutes the fine-tuning signal. The model learns the *average* behavior in the training data — if 25% of examples show minimal transformation, that becomes part of the learned behavior.
 
@@ -327,7 +324,7 @@ Target  : {simplified_output}
 
 ### Train/Eval Metrics (Final Run)
 - **Quality improvement**: 52% relative improvement (readability score 5.0 → 7.6)
-- **Loss**: Converging cleanly, train loss ~0.8 at end of run
+- **Loss**: Training loss decreased steadily throughout fine-tuning with no signs of overfitting
 - **Validation loss**: Smooth descent, no overfitting
 
 ---
@@ -364,7 +361,6 @@ Target  : {simplified_output}
 | Dataset Win Rate | > 70% | **63%** | 🟡 Near target |
 | Legal Win Rate | > 70% | **69%** | 🟡 Near target |
 | Grade | B or A | **B** | ✅ Hit |
-| Percentile | > 20 | **11.8** | 🔄 In progress |
 | Quality Improvement | — | **+52%** | ✅ Strong |
 | Readability Score | — | **5.0 → 7.6** | ✅ Strong |
 
@@ -499,16 +495,17 @@ print(simplify_clause(clause))
 
 ### Inference Requirements
 
-| Component | Minimum | Recommended |
-|---|---|---|
-| GPU VRAM | 24 GB (quantised) | 40–80 GB (bfloat16) |
-| GPU | RTX 3090 / A10G | A100 / H100 |
-| RAM | 32 GB | 64 GB |
-| Storage | 35 GB (model weights) | 50 GB |
-| Python | 3.10+ | 3.11 |
-| CUDA | 11.8+ | 12.2+ |
+> **Note:** The figures below are estimates based on the Llama 4 Scout 17B-16E model size and are provided as general guidance. Actual requirements will vary depending on your quantisation settings, batch size, and sequence length. We recommend testing on your own hardware.
 
-> **Tip**: For machines with less VRAM, load the base model in 4-bit with `load_in_4bit=True` via `bitsandbytes`. The LoRA adapter loads on top without issue.
+| Component | Estimated (full bfloat16) | Estimated (4-bit quantised) |
+|---|---|---|
+| GPU VRAM | ~40 GB | ~12–16 GB |
+| System RAM | ~32 GB | ~16 GB |
+| Storage | ~35 GB (model weights) | ~10 GB (quantised) |
+| Python | 3.10+ | 3.10+ |
+| CUDA | 11.8+ | 11.8+ |
+
+> **Tip**: For machines with limited VRAM, load the base model in 4-bit with `load_in_4bit=True` via `bitsandbytes`. The LoRA adapter loads on top without issue. These estimates have not been exhaustively benchmarked across all hardware configurations.
 
 ### Quantised Loading (Low-VRAM)
 
@@ -569,7 +566,7 @@ pip install pandas
 
 ### 2. 📉 Low-Quality Simplifications
 **Problem**: Many auto-generated simplifications preserved legal jargon, used passive voice, or were longer than the original clause.  
-**Solution**: Replaced flagged rows using a structured Claude API prompt specifying 8th-grade reading level, jargon removal, and length constraints.
+**Solution**: Replaced flagged rows with improved plain-English rewrites, using clear quality criteria: 8th-grade reading level, jargon removal, and length constraints.
 
 ### 3. 🧹 Dataset Cleaning at Scale
 **Problem**: The initial 50k dataset contained off-topic examples, mixed domains (Q&A pairs vs. simplification pairs), and inconsistent formatting.  
@@ -673,20 +670,7 @@ print(f'Downloaded {len(ds[\"train\"])} rows')
 Or download `legal_simplification_clean.csv` manually from the Kaggle/HuggingFace links above and place it in `data/`.
 
 ### 4. Run dataset quality filter
-```bash
-python scripts/filter_dataset.py
-```
 
-### 5. Run fine-tuning via AutoScientist
-Upload the cleaned dataset to [Adaption AutoScientist](https://adaptionlabs.ai/), select `meta-llama/Llama-4-Scout-17B-16E-Instruct` as the base model, and apply the LoRA configuration from the [Training Configuration](#️-training-configuration) section.
-
-### 6. Run inference
-```bash
-python scripts/inference.py --clause "Your legal clause here"
-```
-Or use the demo script in the [Demo](#-demo) section, pointing `adapter_path` at your downloaded weights.
-
-### Dataset Quality Filter (reproducible)
 ```python
 import pandas as pd
 
@@ -695,12 +679,19 @@ def overlap_score(a: str, b: str) -> float:
     bw = set(b.lower().split())
     return len(aw & bw) / max(len(aw), 1)
 
-df = pd.read_csv("data/legal_simplification_clean.csv")
+df = pd.read_csv("legal_simplification_clean.csv")
 df["overlap"] = df.apply(lambda r: overlap_score(r["Input"], r["Output"]), axis=1)
 clean_df = df[df["overlap"] <= 0.75]
 print(f"Clean rows: {len(clean_df)} / {len(df)}")
-clean_df.to_csv("data/legal_simplification_filtered.csv", index=False)
+clean_df.to_csv("legal_simplification_filtered.csv", index=False)
 ```
+
+### 5. Run fine-tuning via AutoScientist
+Upload the cleaned dataset to [Adaption AutoScientist](https://adaptionlabs.ai/), select `meta-llama/Llama-4-Scout-17B-16E-Instruct` as the base model, and apply the LoRA configuration from the [Training Configuration](#️-training-configuration) section.
+
+### 6. Run inference
+
+Use the demo code in the [Demo](#-demo) section above, pointing `adapter_path` at your downloaded weights.
 
 ---
 
@@ -755,7 +746,7 @@ If you use LexSimplify, the dataset, or the methodology in your research or proj
   howpublished = {\url{https://github.com/HackIndiaXYZ/adaption-autoscientist-challenge-50000-prize-pool-byteme}},
   note         = {HackIndia Adaption AutoScientist Challenge.
                   Model: \url{https://huggingface.co/Karthikrv/Legal-Document-Simplifier-Llama4}.
-                  Dataset: \url{https://huggingface.co/datasets/Karthikrv/adaption-legal-clause-simplification}.}
+                  Dataset (derived from CUAD CC BY 4.0): \url{https://huggingface.co/datasets/Karthikrv/adaption-legal-clause-simplification}.}
 }
 ```
 
