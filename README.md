@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="assets/banner.png" alt="LexSimplify Banner" width="900"/>
-</p>
-
 <h1 align="center">⚖️ LexSimplify — AI-Powered Legal Document Simplification</h1>
 <p align="center"><b>Team ByteMe · HackIndia AutoScientist Challenge · ₹50,000 Prize Pool</b></p>
 
