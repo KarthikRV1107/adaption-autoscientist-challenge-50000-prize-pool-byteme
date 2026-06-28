@@ -1,0 +1,29 @@
+{
+  "finetune_job_id": "6295611e-d03c-4ebd-bf59-262e428eef35",
+  "training_experiment_id": "6e071484-9c1e-4b6c-8849-f6bcdf9a09a8",
+  "original_model_name": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "trained_model_name": "adaption_legal_clause_simplification",
+  "training_method": "sft",
+  "training_type": "lora",
+  "data_format": "chat",
+  "hyperparams": {
+    "lora": true,
+    "lora_r": 32,
+    "n_evals": 5,
+    "n_epochs": 2,
+    "batch_size": "max",
+    "lora_alpha": 64,
+    "lora_dropout": 0.05,
+    "min_lr_ratio": 0.1,
+    "warmup_ratio": 0.05,
+    "weight_decay": 0.02,
+    "learning_rate": 0.00003,
+    "max_grad_norm": 1,
+    "base_model_size": "109B",
+    "train_on_inputs": false,
+    "training_method": "sft",
+    "lr_scheduler_type": "cosine",
+    "scheduler_num_cycles": 0.5,
+    "lora_trainable_modules": "k_proj,o_proj,q_proj,v_proj,shared_expert.gate_proj,shared_expert.up_proj,shared_expert.down_proj,feed_forward.gate_proj,feed_forward.up_proj,feed_forward.down_proj"
+  }
+}
