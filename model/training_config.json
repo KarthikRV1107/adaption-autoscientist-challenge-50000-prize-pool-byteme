@@ -1,0 +1,35 @@
+{
+  "base_model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+  "trained_model": "adaption_legal_clause_simplification",
+  "training_method": "Supervised Fine-Tuning (SFT)",
+  "training_type": "LoRA (PEFT)",
+  "data_format": "chat",
+
+  "hyperparameters": {
+    "epochs": 2,
+    "learning_rate": 3e-5,
+    "batch_size": "max",
+    "lora_rank": 32,
+    "lora_alpha": 64,
+    "lora_dropout": 0.05,
+    "warmup_ratio": 0.05,
+    "weight_decay": 0.02,
+    "scheduler": "cosine",
+    "min_lr_ratio": 0.1,
+    "max_grad_norm": 1.0,
+    "evaluation_runs": 5
+  },
+
+  "target_modules": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj",
+    "shared_expert.gate_proj",
+    "shared_expert.up_proj",
+    "shared_expert.down_proj",
+    "feed_forward.gate_proj",
+    "feed_forward.up_proj",
+    "feed_forward.down_proj"
+  ]
+}
