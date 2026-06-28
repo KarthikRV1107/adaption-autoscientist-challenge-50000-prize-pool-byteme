@@ -3,9 +3,9 @@
 > **Team ByteMe · HackIndia AutoScientist Challenge · ₹50,000 Prize Pool**
 
 [![Model](https://img.shields.io/badge/🤗%20Model-Llama%204%20Scout%2017B%20LoRA-blue)](https://huggingface.co/Karthikrv/Legal-Document-Simplifier-Llama4)
-[![Dataset](https://img.shields.io/badge/📦%20Dataset-Kaggle%20CUAD-orange)](https://www.kaggle.com/)
-[![Grade](https://img.shields.io/badge/Grade-B-brightgreen)](https://autoscientist.ai/)
-[![Win Rate](https://img.shields.io/badge/Legal%20Win%20Rate-69%25-success)](https://autoscientist.ai/)
+[![Dataset](https://img.shields.io/badge/📦_Dataset-Kaggle-orange)](https://www.kaggle.com/datasets/karthikrv1107/adaption-legal-clause-simplification)
+[![Grade](https://img.shields.io/badge/AutoScientist_Grade-B-brightgreen)](https://adaptionlabs.ai/app/dataset/6206c9f4-a0ef-4bb3-af1c-6725d533a297?tab=finetune)
+[![Legal Win Rate](https://img.shields.io/badge/Legal_Win_Rate-69%25-success)](https://adaptionlabs.ai/app/dataset/6206c9f4-a0ef-4bb3-af1c-6725d533a297?tab=finetune)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
 
 ---
