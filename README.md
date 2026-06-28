@@ -6,22 +6,16 @@
     <img src="https://img.shields.io/badge/🤗_Model-Llama_4_Scout_17B_LoRA-blue" alt="Model"/>
   </a>
   <a href="https://www.kaggle.com/datasets/karthikrv1107/adaption-legal-clause-simplification">
-    <img src="https://img.shields.io/badge/📦_Dataset-Kaggle-orange" alt="Dataset"/>
+    <img src="https://img.shields.io/badge/Kaggle-Dataset-20BEFF?logo=kaggle&logoColor=white" alt="Kaggle"/>
   </a>
   <a href="https://huggingface.co/datasets/Karthikrv/adaption-legal-clause-simplification">
-    <img src="https://img.shields.io/badge/📦_Dataset-HuggingFace-yellow" alt="HF Dataset"/>
+    <img src="https://img.shields.io/badge/🤗_Dataset-HuggingFace-yellow" alt="HF Dataset"/>
   </a>
   <a href="https://adaptionlabs.ai/app/dataset/6206c9f4-a0ef-4bb3-af1c-6725d533a297?tab=finetune">
     <img src="https://img.shields.io/badge/AutoScientist_Grade-B-brightgreen" alt="Grade"/>
   </a>
   <a href="https://adaptionlabs.ai/app/dataset/6206c9f4-a0ef-4bb3-af1c-6725d533a297?tab=finetune">
     <img src="https://img.shields.io/badge/Legal_Win_Rate-69%25-success" alt="Legal Win Rate"/>
-  </a>
-  <a href="https://huggingface.co/Karthikrv/Legal-Document-Simplifier-Llama4">
-    <img src="https://img.shields.io/badge/🤗_Downloads-HuggingFace-blueviolet" alt="HF Downloads"/>
-  </a>
-  <a href="https://www.kaggle.com/datasets/karthikrv1107/adaption-legal-clause-simplification">
-    <img src="https://img.shields.io/badge/Kaggle-Dataset-20BEFF?logo=kaggle&logoColor=white" alt="Kaggle"/>
   </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License"/>
