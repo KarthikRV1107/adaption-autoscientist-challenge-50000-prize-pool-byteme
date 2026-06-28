@@ -5,11 +5,11 @@
   <a href="https://huggingface.co/Karthikrv/Legal-Document-Simplifier-Llama4">
     <img src="https://img.shields.io/badge/🤗_Model-Llama_4_Scout_17B_LoRA-blue" alt="Model"/>
   </a>
-  <a href="https://www.kaggle.com/datasets/karthikrv1107/adaption-legal-clause-simplification">
-    <img src="https://img.shields.io/badge/📦_Dataset-Kaggle-orange" alt="Dataset"/>
+    <a href="https://www.kaggle.com/datasets/karthikrv1107/adaption-legal-clause-simplification">
+    <img src="https://img.shields.io/badge/Kaggle-Dataset-20BEFF?logo=kaggle&logoColor=white" alt="Kaggle"/>
   </a>
   <a href="https://huggingface.co/datasets/Karthikrv/adaption-legal-clause-simplification">
-    <img src="https://img.shields.io/badge/📦_Dataset-HuggingFace-yellow" alt="HF Dataset"/>
+    <img src="https://img.shields.io/badge/🤗_Dataset-HuggingFace-yellow" alt="HF Dataset"/>
   </a>
   <a href="https://adaptionlabs.ai/app/dataset/6206c9f4-a0ef-4bb3-af1c-6725d533a297?tab=finetune">
     <img src="https://img.shields.io/badge/AutoScientist_Grade-B-brightgreen" alt="Grade"/>
@@ -30,6 +30,17 @@
 - ✅ Training dataset released
 - ✅ Evaluation completed
 - ✅ Documentation completed
+- 🚧 Interactive demo (coming soon)
+
+---
+
+## ⭐ Repository Highlights
+
+- 🤖 Fine-tuned Llama 4 Scout 17B-16E using LoRA (PEFT)
+- 📦 Curated dataset with 3,477 legal clause simplification pairs
+- 📊 Evaluated using Adaption AutoScientist
+- ⚖️ Achieved 69% Legal Win Rate and 63% Dataset Win Rate
+- 📚 Complete documentation, methodology, and architecture
 
 ---
 
@@ -47,12 +58,13 @@
 - [Why LoRA?](#-why-lora)
 - [Results](#-results)
 - [Evaluation](#-evaluation)
-- [Demo](#-demo-coming-soon)
+- [Demo](#-demo)
 - [Repository Structure](#-repository-structure)
 - [Technologies](#-technologies)
 - [Links](#-links)
 - [Reproducibility](#-reproducibility)
 - [Future Work](#-future-work)
+- [Conclusion](#-conclusion)
 
 ---
 
@@ -204,6 +216,8 @@ Iteration based on metrics
 <img src="docs/architecture.png" width="900">
 </p>
 
+The architecture illustrates the complete workflow from raw legal documents through dataset preparation, AutoScientist fine-tuning, model evaluation, and final deployment.
+
 ---
 
 ## 🔄 Pipeline
@@ -211,6 +225,8 @@ Iteration based on metrics
 <p align="center">
 <img src="docs/pipeline.png" width="900">
 </p>
+
+The training pipeline demonstrates how high-quality data preparation, LoRA fine-tuning, and iterative evaluation were combined to improve legal text simplification performance.
 
 ---
 
@@ -226,10 +242,21 @@ Iteration based on metrics
 {
   "peft_type": "LORA",
   "task_type": "CAUSAL_LM",
-  "r": 16,
-  "lora_alpha": 32,
+  "r": 32,
+  "lora_alpha": 64,
   "lora_dropout": 0.05,
-  "target_modules": ["q_proj", "v_proj", "k_proj", "o_proj"]
+  "target_modules": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj",
+    "shared_expert.gate_proj",
+    "shared_expert.up_proj",
+    "shared_expert.down_proj",
+    "feed_forward.gate_proj",
+    "feed_forward.up_proj",
+    "feed_forward.down_proj"
+  ]
 }
 ```
 
@@ -275,6 +302,8 @@ LoRA (Low-Rank Adaptation) enables efficient fine-tuning by training only a smal
 | Quality Improvement | — | **+52%** | ✅ Strong |
 | Readability Score | — | **5.0 → 7.6** | ✅ Strong |
 
+The fine-tuned model consistently outperformed the base Llama 4 Scout model on legal clause simplification tasks. It achieved a **63% Dataset Win Rate** and a **69% Legal Win Rate**, while improving readability from **5.0 to 7.6** without compromising the original legal meaning. These results demonstrate that high-quality dataset curation combined with LoRA-based supervised fine-tuning can significantly improve domain-specific language generation.
+
 ### Win Rate Progression
 
 ```
@@ -308,9 +337,11 @@ The jump from 1% to 63% win rate — achieved purely through dataset quality imp
 
 ---
 
-## 🎬 Demo (Coming Soon)
+## 🎬 Demo
 
-The interactive web demo will be released after the competition. Meanwhile, the model can be reproduced using the inference example below.
+> 🚧 The interactive Gradio demo is currently under development and will be released after the competition.
+
+The released Hugging Face model and dataset can already be used for inference using the example below.
 
 ### Quick Inference Example
 
@@ -391,7 +422,7 @@ print(simplify_clause(clause))
 | AutoScientist | Fine-tuning pipeline and evaluation |
 | Hugging Face Hub | Model and dataset hosting |
 | Kaggle | Dataset mirroring |
-| BeautifulSoup | Data preprocessing |
+| Git / GitHub | Version control and open release |
 
 ---
 
@@ -428,7 +459,7 @@ Download the dataset from [Kaggle](https://www.kaggle.com/datasets/karthikrv1107
 Upload the dataset to [AutoScientist](https://autoscientist.ai/), select `meta-llama/Llama-4-Scout-17B-16E-Instruct` as the base model, and use the LoRA config in `model/training_config.json`.
 
 ### 5. Run inference
-Use the quick inference example in the [Demo](#-demo-coming-soon) section above.
+Use the quick inference example in the [Demo](#-demo) section above.
 
 ### Dataset Quality Filter
 ```python
@@ -455,6 +486,13 @@ print(f"Clean rows: {len(clean_df)} / {len(df)}")
 - Retrieval-Augmented Generation (RAG) for jurisdiction-aware simplification
 - Lawyer-in-the-loop verification pipeline
 - Risk level classification (Low / Medium / High) per clause
+- Web-based contract upload and document parsing
+
+---
+
+## ✅ Conclusion
+
+LexSimplify demonstrates how high-quality dataset preparation combined with parameter-efficient fine-tuning can significantly improve legal language understanding. The project highlights the importance of data quality over data quantity and provides an open, reproducible solution for making legal documents more accessible.
 
 ---
 
