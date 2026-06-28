@@ -46,9 +46,12 @@
 - [Why Legal Simplification Matters](#-why-legal-simplification-matters)
 - [Dataset](#-dataset)
 - [AutoScientist Pipeline](#-autoscientist-pipeline)
+- [Architecture](#-architecture)
+- [Pipeline](#-pipeline)
 - [Training Configuration](#-training-configuration)
 - [Why LoRA?](#-why-lora)
 - [Results](#-results)
+- [Evaluation](#-evaluation)
 - [Demo](#-demo-coming-soon)
 - [Repository Structure](#-repository-structure)
 - [Technologies](#-technologies)
@@ -166,6 +169,22 @@ You are a legal simplification expert. Rewrite this legal clause in plain Englis
 
 We used the **AutoScientist** platform end-to-end for dataset management, training orchestration, and evaluation.
 
+## 🏗 Architecture
+
+<p align="center">
+<img src="docs/architecture.png" width="900">
+</p>
+
+---
+
+## 🔄 Pipeline
+
+<p align="center">
+<img src="docs/pipeline.png" width="900">
+</p>
+
+---
+
 ### Pipeline Overview
 
 ```
@@ -268,6 +287,18 @@ Run 1 (50k noisy dataset):   Win Rate  3% ❌  Catastrophic failure
 Run 2 (3k raw, unfiltered):  Win Rate  1% ❌  Data quality issue
 Run 3 (3.4k cleaned):        Win Rate 63% ✅  Genuine improvement
 ```
+
+## 📈 Evaluation
+
+<p align="center">
+<img src="evaluation/training_winrates.png" width="900">
+</p>
+
+<p align="center">
+<img src="evaluation/grade_percentile.png" width="900">
+</p>
+
+---
 
 The jump from 1% to 63% win rate — achieved purely through dataset quality improvement with no architecture changes — is the core technical finding of this project.
 
