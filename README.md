@@ -30,7 +30,6 @@
 - ✅ Training dataset released
 - ✅ Evaluation completed
 - ✅ Documentation completed
-- 🚧 Interactive demo (coming soon)
 
 ---
 
