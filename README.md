@@ -17,6 +17,12 @@
   <a href="https://adaptionlabs.ai/app/dataset/6206c9f4-a0ef-4bb3-af1c-6725d533a297?tab=finetune">
     <img src="https://img.shields.io/badge/Legal_Win_Rate-69%25-success" alt="Legal Win Rate"/>
   </a>
+  <a href="https://huggingface.co/Karthikrv/Legal-Document-Simplifier-Llama4">
+    <img src="https://img.shields.io/badge/🤗_Downloads-HuggingFace-blueviolet" alt="HF Downloads"/>
+  </a>
+  <a href="https://www.kaggle.com/datasets/karthikrv1107/adaption-legal-clause-simplification">
+    <img src="https://img.shields.io/badge/Kaggle-Dataset-20BEFF?logo=kaggle&logoColor=white" alt="Kaggle"/>
+  </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License"/>
   </a>
@@ -33,6 +39,16 @@
 
 ---
 
+## ⭐ Repository Highlights
+
+- 🤗 Fine-tuned Llama 4 Scout LoRA adapter — ready to use via HuggingFace PEFT
+- 📦 Curated legal simplification dataset — 3,477 quality-filtered samples across 41 clause types
+- 📊 AutoScientist evaluation results — 63% dataset win rate, 69% legal win rate, Grade B
+- 🏗 System architecture and pipeline diagrams — full visual documentation
+- 📚 Complete technical documentation — reproducible training config, inference examples, dataset quality filter code
+
+---
+
 ## 📋 Table of Contents
 
 - [Project Overview](#-project-overview)
@@ -41,9 +57,12 @@
 - [Why Legal Simplification Matters](#-why-legal-simplification-matters)
 - [Dataset](#-dataset)
 - [AutoScientist Pipeline](#-autoscientist-pipeline)
+- [Architecture](#-architecture)
+- [Pipeline](#-pipeline)
 - [Training Configuration](#-training-configuration)
 - [Why LoRA?](#-why-lora)
 - [Results](#-results)
+- [Evaluation](#-evaluation)
 - [Demo](#-demo-coming-soon)
 - [Repository Structure](#-repository-structure)
 - [Technologies](#-technologies)
@@ -195,6 +214,22 @@ Iteration based on metrics
 
 ---
 
+## 🏗 Architecture
+
+<p align="center">
+<img src="docs/architecture.png" width="900">
+</p>
+
+---
+
+## 🔄 Pipeline
+
+<p align="center">
+<img src="docs/pipeline.png" width="900">
+</p>
+
+---
+
 ## ⚙️ Training Configuration
 
 ### Model
@@ -277,6 +312,18 @@ The jump from 1% to 63% win rate — achieved purely through dataset quality imp
 
 ---
 
+## 📈 Evaluation
+
+<p align="center">
+<img src="evaluation/training_winrates.png" width="900">
+</p>
+
+<p align="center">
+<img src="evaluation/grade_percentile.png" width="900">
+</p>
+
+---
+
 ## 🎬 Demo (Coming Soon)
 
 The interactive web demo will be released after the competition. Meanwhile, the model can be reproduced using the inference example below.
@@ -327,7 +374,6 @@ print(simplify_clause(clause))
 ├── LICENSE
 ├── requirements.txt
 ├── assets/
-│   ├── banner.png
 │   └── screenshots/
 ├── dataset/
 │   ├── dataset_card.md
@@ -338,7 +384,8 @@ print(simplify_clause(clause))
 │   └── methodology.md
 ├── evaluation/
 │   ├── evaluation.md
-│   └── metrics.png
+│   ├── training_winrates.png
+│   └── grade_percentile.png
 └── model/
     ├── model_card.md
     ├── model_link.md
