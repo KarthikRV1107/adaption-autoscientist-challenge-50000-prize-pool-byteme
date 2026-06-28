@@ -1,8 +1,4 @@
-<h1 align="center">⚖️ LexSimplify</h1>
-<h3 align="center">AI-Powered Legal Document Simplification</h3>
-<p align="center">
-  <i>Llama 4 Scout 17B · LoRA · AutoScientist · Plain English for Everyone</i>
-</p>
+<h1 align="center">⚖️ LexSimplify — AI-Powered Legal Document Simplification</h1>
 <p align="center"><b>Team ByteMe · HackIndia AutoScientist Challenge · ₹50,000 Prize Pool</b></p>
 
 <p align="center">
@@ -34,7 +30,6 @@
 - ✅ Training dataset released
 - ✅ Evaluation completed
 - ✅ Documentation completed
-- 🚧 Interactive demo (coming soon)
 
 ---
 
@@ -169,22 +164,6 @@ You are a legal simplification expert. Rewrite this legal clause in plain Englis
 
 We used the **AutoScientist** platform end-to-end for dataset management, training orchestration, and evaluation.
 
-## 🏗 Architecture
-
-<p align="center">
-<img src="docs/architecture.png" width="900">
-</p>
-
----
-
-## 🔄 Pipeline
-
-<p align="center">
-<img src="docs/pipeline.png" width="900">
-</p>
-
----
-
 ### Pipeline Overview
 
 ```
@@ -216,6 +195,22 @@ Iteration based on metrics
 | 3 | legal_text_simplification v2 (3.4k cleaned) | **63%** | **69%** | **B** | Quality filtering fixed the problem |
 
 **Key learning**: The 50k dataset produced dramatically worse results than the 3k dataset because quantity without quality dilutes the fine-tuning signal. The model learns the *average* behavior in the training data — if 25% of examples show minimal transformation, that becomes part of the learned behavior.
+
+---
+
+## 🏗 Architecture
+
+<p align="center">
+<img src="docs/architecture.png" width="900">
+</p>
+
+---
+
+## 🔄 Pipeline
+
+<p align="center">
+<img src="docs/pipeline.png" width="900">
+</p>
 
 ---
 
@@ -288,18 +283,6 @@ Run 2 (3k raw, unfiltered):  Win Rate  1% ❌  Data quality issue
 Run 3 (3.4k cleaned):        Win Rate 63% ✅  Genuine improvement
 ```
 
-## 📈 Evaluation
-
-<p align="center">
-<img src="evaluation/training_winrates.png" width="900">
-</p>
-
-<p align="center">
-<img src="evaluation/grade_percentile.png" width="900">
-</p>
-
----
-
 The jump from 1% to 63% win rate — achieved purely through dataset quality improvement with no architecture changes — is the core technical finding of this project.
 
 ### What the Model Learned
@@ -310,6 +293,18 @@ The jump from 1% to 63% win rate — achieved purely through dataset quality imp
 
 **After (fine-tuned):**
 > → *"The company that owns the technology keeps full ownership of it, including all patents, copyrights, and other legal protections."* ← genuinely plain English
+
+---
+
+## 📈 Evaluation
+
+<p align="center">
+<img src="evaluation/training_winrates.png" width="900">
+</p>
+
+<p align="center">
+<img src="evaluation/grade_percentile.png" width="900">
+</p>
 
 ---
 
@@ -363,7 +358,6 @@ print(simplify_clause(clause))
 ├── LICENSE
 ├── requirements.txt
 ├── assets/
-│   ├── banner.png
 │   └── screenshots/
 ├── dataset/
 │   ├── dataset_card.md
@@ -374,7 +368,8 @@ print(simplify_clause(clause))
 │   └── methodology.md
 ├── evaluation/
 │   ├── evaluation.md
-│   └── metrics.png
+│   ├── training_winrates.png
+│   └── grade_percentile.png
 └── model/
     ├── model_card.md
     ├── model_link.md
