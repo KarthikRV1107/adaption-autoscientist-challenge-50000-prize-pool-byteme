@@ -503,4 +503,3 @@ Built for the **HackIndia AutoScientist Challenge** — using AutoScientist to a
 ---
 
 *MIT License · See [LICENSE](LICENSE) for details*
-
